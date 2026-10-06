@@ -1,0 +1,313 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 0;
+}
+
+
+/* HEADER */
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #64748b;
+    margin: 5px;
+}
+
+.student {
+    font-weight: bold;
+}
+
+
+/* CARD */
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    margin-bottom: 25px;
+}
+
+
+/* FORM */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.input-box,
+.actual-price {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.actual-price {
+    margin-top: 20px;
+}
+
+.actual-price span {
+    font-weight: normal;
+    color: #64748b;
+}
+
+
+/* BUTTON */
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+
+/* PRICE */
+
+.price-result {
+    text-align: center;
+    background: #eff6ff;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.price-result p {
+    color: #64748b;
+}
+
+.price-result h1 {
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+
+/* MODELS */
+
+.model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.model {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.model h3 {
+    margin-bottom: 20px;
+}
+
+.model p {
+    margin-top: 15px;
+    color: #64748b;
+}
+
+.best {
+    border: 2px solid #2563eb;
+}
+
+.best-label {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2563eb;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* PREDICTION */
+
+.high,
+.low {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.high {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.low {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* COMPARISON */
+
+.comparison-grid,
+.regression-grid,
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.comparison-grid div,
+.regression-grid div,
+.info-grid div {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.comparison-grid p,
+.regression-grid p {
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #f8fafc;
+}
+
+tr:hover {
+    background: #f8fafc;
+}
+
+
+/* DATASET */
+
+.info-grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-grid strong {
+    font-size: 25px;
+}
+
+.info-grid span {
+    margin-top: 5px;
+    color: #64748b;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    color: #64748b;
+    padding: 20px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .model-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-grid,
+    .regression-grid,
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comparison-grid,
+    .regression-grid,
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
+}
