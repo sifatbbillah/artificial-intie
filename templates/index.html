@@ -5,521 +5,571 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>House Price Prediction</title>
+    <title>AI House Price Predictor</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="page">
 
-    <header>
 
-        <h1>🏠 House Price Prediction</h1>
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="hero">
+
+        <div class="hero-icon">🏠</div>
+
+        <h1>AI House Price Predictor</h1>
 
         <p>
-            Artificial Intelligence Lab Work-04
+            Estimate a house price using Machine Learning
         </p>
 
-        <p class="student">
+        <span class="student">
+            Artificial Intelligence Lab Work-04
+            <br>
             Sifat Billah | Roll 40 | Batch 89
-        </p>
+        </span>
 
     </header>
 
 
-    <!-- ================================================= -->
-    <!-- DATA INPUT -->
-    <!-- ================================================= -->
 
-    <section class="card">
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
 
-        <h2>Enter House Information</h2>
-
-        <form action="/predict" method="POST">
-
-            <div class="form-grid">
-
-                <div class="input-box">
-
-                    <label>House ID</label>
-
-                    <input
-                        type="number"
-                        name="Id"
-                        value="{{ form_data.Id if form_data else '' }}"
-                        required
-                    >
-
-                </div>
+    <main>
 
 
-                <div class="input-box">
+        <!-- =================================================
+             PREDICTION FORM
+        ================================================== -->
 
-                    <label>Area (sq ft)</label>
+        <section class="card prediction-card">
 
-                    <input
-                        type="number"
-                        name="Area"
-                        value="{{ form_data.Area if form_data else '' }}"
-                        required
-                    >
+            <div class="section-title">
 
-                </div>
+                <div>
+                    <h2>🏡 House Information</h2>
 
-
-                <div class="input-box">
-
-                    <label>Bedrooms</label>
-
-                    <input
-                        type="number"
-                        name="Bedrooms"
-                        value="{{ form_data.Bedrooms if form_data else '' }}"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="input-box">
-
-                    <label>Bathrooms</label>
-
-                    <input
-                        type="number"
-                        name="Bathrooms"
-                        value="{{ form_data.Bathrooms if form_data else '' }}"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="input-box">
-
-                    <label>Floors</label>
-
-                    <input
-                        type="number"
-                        name="Floors"
-                        value="{{ form_data.Floors if form_data else '' }}"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="input-box">
-
-                    <label>Year Built</label>
-
-                    <input
-                        type="number"
-                        name="YearBuilt"
-                        value="{{ form_data.YearBuilt if form_data else '' }}"
-                        required
-                    >
-
+                    <p>
+                        Enter the basic information of the house
+                        to estimate its price.
+                    </p>
                 </div>
 
             </div>
 
 
-            <div class="actual-price">
-
-                <label>
-                    Actual Price
-                    <span>(Optional - for comparison)</span>
-                </label>
-
-                <input
-                    type="number"
-                    name="ActualPrice"
-                    placeholder="Example: 500000"
-                    value="{{ form_data.ActualPrice if form_data else '' }}"
-                >
-
-            </div>
+            <form action="/predict" method="POST">
 
 
-            <button type="submit">
-                🔮 Predict House Price
-            </button>
-
-        </form>
-
-    </section>
+                <div class="form-grid">
 
 
-    <!-- ================================================= -->
-    <!-- PREDICTION RESULT -->
-    <!-- ================================================= -->
+                    <!-- AREA -->
 
-    {% if predicted %}
+                    <div class="input-group">
 
-    <section class="card result-card">
+                        <label for="Area">
+                            📐 Area
+                        </label>
 
-        <h2>Prediction Results</h2>
+                        <div class="input-wrapper">
+
+                            <input
+                                type="number"
+                                id="Area"
+                                name="Area"
+                                min="1"
+                                step="1"
+                                value="{{ area if area else '' }}"
+                                placeholder="Example: 1500"
+                                required
+                            >
+
+                            <span>sq ft</span>
+
+                        </div>
+
+                        <small>
+                            Total house area
+                        </small>
+
+                    </div>
 
 
-        <div class="price-result">
 
-            <p>Predicted House Price</p>
+                    <!-- BEDROOMS -->
 
-            <h1>
-                ${{ "{:,.2f}".format(predicted_price) }}
-            </h1>
+                    <div class="input-group">
+
+                        <label for="Bedrooms">
+                            🛏️ Bedrooms
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Bedrooms"
+                            name="Bedrooms"
+                            min="1"
+                            step="1"
+                            value="{{ bedrooms if bedrooms else '' }}"
+                            placeholder="Example: 3"
+                            required
+                        >
+
+                        <small>
+                            Number of bedrooms
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- BATHROOMS -->
+
+                    <div class="input-group">
+
+                        <label for="Bathrooms">
+                            🚿 Bathrooms
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Bathrooms"
+                            name="Bathrooms"
+                            min="1"
+                            step="1"
+                            value="{{ bathrooms if bathrooms else '' }}"
+                            placeholder="Example: 2"
+                            required
+                        >
+
+                        <small>
+                            Number of bathrooms
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- FLOORS -->
+
+                    <div class="input-group">
+
+                        <label for="Floors">
+                            🏢 Floors
+                        </label>
+
+                        <input
+                            type="number"
+                            id="Floors"
+                            name="Floors"
+                            min="1"
+                            step="1"
+                            value="{{ floors if floors else '' }}"
+                            placeholder="Example: 2"
+                            required
+                        >
+
+                        <small>
+                            Number of floors
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <button class="predict-button" type="submit">
+
+                    <span>🔮</span>
+
+                    Predict House Price
+
+                </button>
+
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ERROR
+        ================================================== -->
+
+        {% if error %}
+
+        <div class="error-box">
+
+            ⚠️ {{ error }}
 
         </div>
 
+        {% endif %}
 
-        <div class="model-grid">
 
 
-            <!-- SVM -->
+        <!-- =================================================
+             RESULT
+        ================================================== -->
 
-            <div class="model">
+        {% if predicted %}
 
-                <h3>SVM</h3>
+        <section class="result-section">
 
-                <div class="prediction">
 
-                    {% if svm_result == "High Price" %}
+            <div class="result-card">
 
-                    <span class="high">
-                        HIGH PRICE
-                    </span>
+                <div class="result-label">
+                    ESTIMATED HOUSE PRICE
+                </div>
 
-                    {% else %}
 
-                    <span class="low">
-                        LOW PRICE
-                    </span>
+                <div class="price">
 
-                    {% endif %}
+                    ৳{{ "{:,.0f}".format(predicted_price) }}
 
                 </div>
 
-                <p>
-                    High Price Probability:
-                    <strong>
-                        {{ "%.2f"|format(svm_probability) }}%
-                    </strong>
+
+                <p class="result-description">
+
+                    Estimated using Linear Regression
+                    based on your house information.
+
                 </p>
 
             </div>
 
 
-            <!-- RANDOM FOREST -->
 
-            <div class="model best">
+            <!-- =================================================
+                 RESULT DETAILS
+            ================================================== -->
 
-                <div class="best-label">
-                    BEST MODEL
-                </div>
+            <div class="details-grid">
 
-                <h3>Random Forest</h3>
 
-                <div class="prediction">
+                <div class="detail-card">
 
-                    {% if rf_result == "High Price" %}
+                    <span class="detail-icon">📐</span>
 
-                    <span class="high">
-                        HIGH PRICE
-                    </span>
+                    <div>
 
-                    {% else %}
+                        <small>Area</small>
 
-                    <span class="low">
-                        LOW PRICE
-                    </span>
+                        <strong>
+                            {{ "{:,.0f}".format(area) }} sq ft
+                        </strong>
 
-                    {% endif %}
+                    </div>
 
                 </div>
 
-                <p>
-                    High Price Probability:
+
+
+                <div class="detail-card">
+
+                    <span class="detail-icon">🛏️</span>
+
+                    <div>
+
+                        <small>Bedrooms</small>
+
+                        <strong>
+                            {{ "{:,.0f}".format(bedrooms) }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="detail-card">
+
+                    <span class="detail-icon">🚿</span>
+
+                    <div>
+
+                        <small>Bathrooms</small>
+
+                        <strong>
+                            {{ "{:,.0f}".format(bathrooms) }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="detail-card">
+
+                    <span class="detail-icon">🏢</span>
+
+                    <div>
+
+                        <small>Floors</small>
+
+                        <strong>
+                            {{ "{:,.0f}".format(floors) }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRICE PER SQ FT
+            ================================================== -->
+
+            <div class="price-per-area">
+
+                <div>
+
+                    <span>Estimated Price per sq ft</span>
+
                     <strong>
-                        {{ "%.2f"|format(rf_probability) }}%
+                        ৳{{ "{:,.0f}".format(price_per_sqft) }}
                     </strong>
-                </p>
-
-            </div>
-
-
-            <!-- DECISION TREE -->
-
-            <div class="model">
-
-                <h3>Decision Tree</h3>
-
-                <div class="prediction">
-
-                    {% if dt_result == "High Price" %}
-
-                    <span class="high">
-                        HIGH PRICE
-                    </span>
-
-                    {% else %}
-
-                    <span class="low">
-                        LOW PRICE
-                    </span>
-
-                    {% endif %}
 
                 </div>
 
-                <p>
-                    High Price Probability:
+                <span class="info-icon">ⓘ</span>
+
+            </div>
+
+
+        </section>
+
+        {% endif %}
+
+
+
+        <!-- =================================================
+             HOW IT WORKS
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>⚙️ How It Works</h2>
+
+                    <p>
+                        The prediction process is simple.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="steps">
+
+
+                <div class="step">
+
+                    <div class="step-number">1</div>
+
+                    <div>
+
+                        <h3>Enter Details</h3>
+
+                        <p>
+                            Enter area, bedrooms,
+                            bathrooms and floors.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="step">
+
+                    <div class="step-number">2</div>
+
+                    <div>
+
+                        <h3>Machine Learning</h3>
+
+                        <p>
+                            The Linear Regression model
+                            analyses the input values.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="step">
+
+                    <div class="step-number">3</div>
+
+                    <div>
+
+                        <h3>Get Estimate</h3>
+
+                        <p>
+                            The model calculates an
+                            estimated house price.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MODEL INFORMATION
+        ================================================== -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <div>
+
+                    <h2>📊 Model Information</h2>
+
+                    <p>
+                        Performance of the price prediction model
+                        on the test dataset.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="metrics-grid">
+
+
+                <div class="metric">
+
+                    <span>MAE</span>
+
                     <strong>
-                        {{ "%.2f"|format(dt_probability) }}%
+                        {{ "{:,.0f}".format(mae) }}
                     </strong>
-                </p>
+
+                    <small>
+                        Mean Absolute Error
+                    </small>
+
+                </div>
+
+
+
+                <div class="metric">
+
+                    <span>RMSE</span>
+
+                    <strong>
+                        {{ "{:,.0f}".format(rmse) }}
+                    </strong>
+
+                    <small>
+                        Root Mean Squared Error
+                    </small>
+
+                </div>
+
+
+
+                <div class="metric">
+
+                    <span>R² Score</span>
+
+                    <strong>
+                        {{ "%.3f"|format(r2) }}
+                    </strong>
+
+                    <small>
+                        Model fit score
+                    </small>
+
+                </div>
+
+
+
+                <div class="metric">
+
+                    <span>Dataset</span>
+
+                    <strong>
+                        {{ total_records }}
+                    </strong>
+
+                    <small>
+                        House records
+                    </small>
+
+                </div>
+
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
 
+    </main>
 
-    <!-- ================================================= -->
-    <!-- ACTUAL VS PREDICTED -->
-    <!-- ================================================= -->
 
-    {% if actual_price is not none %}
 
-    <section class="card comparison">
-
-        <h2>Actual vs Predicted Price</h2>
-
-        <div class="comparison-grid">
-
-            <div>
-
-                <p>Actual Price</p>
-
-                <h2>
-                    ${{ "{:,.2f}".format(actual_price) }}
-                </h2>
-
-            </div>
-
-
-            <div>
-
-                <p>Predicted Price</p>
-
-                <h2>
-                    ${{ "{:,.2f}".format(predicted_price) }}
-                </h2>
-
-            </div>
-
-
-            <div>
-
-                <p>Difference</p>
-
-                <h2>
-                    ${{ "{:,.2f}".format(difference|abs) }}
-                </h2>
-
-            </div>
-
-
-            <div>
-
-                <p>Percentage Error</p>
-
-                <h2>
-                    {{ "%.2f"|format(percentage_error) }}%
-                </h2>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    {% endif %}
-
-    {% endif %}
-
-
-    <!-- ================================================= -->
-    <!-- MODEL PERFORMANCE -->
-    <!-- ================================================= -->
-
-    <section class="card">
-
-        <h2>Model Performance</h2>
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Model</th>
-                    <th>Accuracy</th>
-                    <th>Precision</th>
-                    <th>Recall</th>
-                    <th>F1-Score</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                {% for model, values in results.items() %}
-
-                <tr>
-
-                    <td>
-                        {{ model }}
-                    </td>
-
-                    <td>
-                        {{ "%.2f"|format(values.accuracy * 100) }}%
-                    </td>
-
-                    <td>
-                        {{ "%.2f"|format(values.precision * 100) }}%
-                    </td>
-
-                    <td>
-                        {{ "%.2f"|format(values.recall * 100) }}%
-                    </td>
-
-                    <td>
-                        {{ "%.2f"|format(values.f1 * 100) }}%
-                    </td>
-
-                </tr>
-
-                {% endfor %}
-
-            </tbody>
-
-        </table>
-
-    </section>
-
-
-    <!-- ================================================= -->
-    <!-- LINEAR REGRESSION PERFORMANCE -->
-    <!-- ================================================= -->
-
-    <section class="card">
-
-        <h2>Linear Regression Performance</h2>
-
-        <div class="regression-grid">
-
-            <div>
-
-                <p>MAE</p>
-
-                <strong>
-                    {{ "{:,.2f}".format(mae) }}
-                </strong>
-
-            </div>
-
-            <div>
-
-                <p>MSE</p>
-
-                <strong>
-                    {{ "{:,.2f}".format(mse) }}
-                </strong>
-
-            </div>
-
-            <div>
-
-                <p>RMSE</p>
-
-                <strong>
-                    {{ "{:,.2f}".format(rmse) }}
-                </strong>
-
-            </div>
-
-            <div>
-
-                <p>R² Score</p>
-
-                <strong>
-                    {{ "%.4f"|format(r2) }}
-                </strong>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================================================= -->
-    <!-- DATASET INFORMATION -->
-    <!-- ================================================= -->
-
-    <section class="card">
-
-        <h2>Dataset Information</h2>
-
-        <div class="info-grid">
-
-            <div>
-                <strong>2000</strong>
-                <span>Records</span>
-            </div>
-
-            <div>
-                <strong>10</strong>
-                <span>Columns</span>
-            </div>
-
-            <div>
-                <strong>6</strong>
-                <span>ML Features</span>
-            </div>
-
-            <div>
-                <strong>{{ "{:,.0f}".format(median_price) }}</strong>
-                <span>Median Price</span>
-            </div>
-
-        </div>
-
-    </section>
-
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
     <footer>
 
         <p>
-            Artificial Intelligence Lab Work-04
+            🏠 AI House Price Prediction
         </p>
 
         <p>
-            House Price Prediction | Sifat Billah | Roll 40 | Batch 89
+            Sifat Billah | Roll 40 | Batch 89
         </p>
 
     </footer>
+
 
 </div>
 
